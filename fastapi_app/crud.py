@@ -1,0 +1,13 @@
+from database import database
+from models import users
+from schemas import UserCreate
+
+# Создание пользователя
+async def create_user(user: UserCreate):
+    query = users.insert().values(name=user.name, email=user.email)
+    return await database.execute(query)
+
+# Получение всех пользователей
+async def get_users():
+    query = users.select()
+    return await database.fetch_all(query)
